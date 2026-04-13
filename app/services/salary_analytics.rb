@@ -9,10 +9,10 @@ class SalaryAnalytics
         }
     end
 
-    def self.avg_salary_by_job(country, job_title)
-        Employee.where(country: country, job_title: job_title)
-                .average(:salary)&.to_f
-    end
+    # def self.avg_salary_by_job(country, job_title)
+    #     Employee.where(country: country, job_title: job_title)
+    #             .average(:salary)&.to_f
+    # end
 
     def self.department_breakdown(country)
         Employee.where(country: country)
@@ -25,4 +25,14 @@ class SalaryAnalytics
             .group(:department)
             .count
     end
+    def self.avg_salary_by_job(country, job_title)
+        avg = Employee
+                .where("LOWER(country) = ? AND LOWER(job_title) = ?",
+                        country.to_s.strip.downcase,
+                        job_title.to_s.strip.downcase)
+                .average(:salary)
+
+        avg ? avg.to_f : 0
+    end
+            
 end

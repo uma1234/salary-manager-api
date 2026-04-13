@@ -4,7 +4,7 @@ class EmployeesController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
   def index
-    employees = Employee.page(params[:page] || 1).per(20)
+    employees = Employee.page(params[:page] || 1).per(10)
     render json: employees
   end
 

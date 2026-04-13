@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   get "/analytics/country", to: "analytics#country"
   get "/analytics/job", to: "analytics#job"
   get "/analytics/department", to: "analytics#department"
+  get 'data', to: 'data#index'
+
 
   # get "analytics/:country", to: "analytics#country"
   # get "analytics/:country/job", to: "analytics#job"
