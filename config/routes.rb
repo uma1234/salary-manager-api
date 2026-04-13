@@ -7,4 +7,15 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+  resources :employees
+
+
+  get "/analytics/country", to: "analytics#country"
+  get "/analytics/job", to: "analytics#job"
+  get "/analytics/department", to: "analytics#department"
+
+  # get "analytics/:country", to: "analytics#country"
+  # get "analytics/:country/job", to: "analytics#job"
+  # get "analytics/:country/department", to: "analytics#department"
+
 end

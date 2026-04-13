@@ -1,4 +1,16 @@
+puts "Resetting employees table..."
+
+# 1. Delete all records
 Employee.delete_all
+
+# 2. Reset SQLite auto-increment counter
+ActiveRecord::Base.connection.execute(
+  "DELETE FROM sqlite_sequence WHERE name='employees'"
+)
+
+puts "Seeding employees..."
+
+# 3. Build data
 
 job_titles = ['Engineer', 'Manager', 'Designer', 'Analyst']
 countries = ['USA', 'India', 'UK', 'Germany']
