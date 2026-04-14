@@ -1,6 +1,12 @@
 class Employee < ApplicationRecord
-  validates :first_name, :last_name, :email, :job_title, :country, :salary, :department, presence: true
-  validates :salary, numericality: { greater_than: 0 }
+  validates :first_name,  presence: true,format: { with: /\A[a-zA-Z]+\z/, message: "must contain only letters" }
+  validates :last_name,  presence: true,format: {with: /\A[a-zA-Z]+\z/, message: "must contain only letters"}
+  validates :email, presence: true, format: {
+    with: /\A[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\z/,
+    message: "must be a valid email format"
+  }
+  validates :salary, presence: true, numericality: { only_integer: true, greater_than: 0 }
+  validates :job_title, :country, :salary, :department, presence: true
 
   scope :search, ->(query) {
     return all if query.blank?
