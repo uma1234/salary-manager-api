@@ -26,6 +26,8 @@
 #     en:
 #       "yes": yup
 #       enabled: "ON"
-
 en:
-  hello: "Hello world"
+  errors:
+    messages:
+      blank: "is required"
+      greater_than: "must be greater than %{count}"
