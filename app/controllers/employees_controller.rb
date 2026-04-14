@@ -3,8 +3,26 @@ class EmployeesController < ApplicationController
 
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
+  # def index
+  #   employees = Employee.page(params[:page] || 1).per(10)
+  #   render json: employees
+  # end
   def index
-    employees = Employee.page(params[:page] || 1).per(10)
+    employees = Employee.all
+
+    # Apply search if present
+    if params[:search].present?
+      search = "%#{params[:search]}%"
+
+      employees = employees.where(
+        "first_name LIKE :s OR last_name LIKE :s OR email LIKE :s OR job_title LIKE :s OR department LIKE :s OR country LIKE :s",
+        s: search
+      )
+    end
+
+    # Apply pagination AFTER search
+    employees = employees.page(params[:page] || 1).per(10)
+
     render json: employees
   end
 
