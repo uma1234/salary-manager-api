@@ -20,6 +20,17 @@ RSpec.describe "Employees API", type: :request do
       expect(response).to have_http_status(:ok)
       expect(JSON.parse(response.body).length).to eq(3)
     end
+
+    it "filters employees by search" do
+      Employee.create!(first_name: "John", last_name: "Doe", email: "john@example.com", job_title: "Dev", country: "India", salary: 50000, department: "IT")
+      Employee.create!(first_name: "Alice", last_name: "Smith", email: "alice@example.com", job_title: "HR", country: "USA", salary: 50000, department: "HR")
+
+      get "/employees", params: { search: "Dev" }
+
+      results = JSON.parse(response.body)
+
+      expect(results.length).to eq(1)
+    end
   end
 
   describe "POST /employees" do

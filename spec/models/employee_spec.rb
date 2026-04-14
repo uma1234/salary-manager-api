@@ -8,7 +8,9 @@ RSpec.describe Employee, type: :model do
       email: "john@example.com",
       job_title: "Developer",
       country: "India",
-      salary: 50000
+      salary: 50000,
+      department: "IT"
+
     )
   end
 
@@ -43,4 +45,6 @@ RSpec.describe Employee, type: :model do
 
     expect(employee.full_name).to eq("John Doe")
   end
+
+  
 end
